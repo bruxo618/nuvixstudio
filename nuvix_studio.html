@@ -1,0 +1,252 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Nuvix Studio</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: white;
+    color: #4B0082;
+    margin: 0; padding: 0;
+  }
+  header, footer {
+    background: #4B0082;
+    color: white;
+    text-align: center;
+    padding: 20px;
+  }
+  nav {
+    background: #6A0DAD;
+    text-align: center;
+    padding: 12px;
+  }
+  nav button {
+    background: none;
+    border: none;
+    color: white;
+    font-weight: bold;
+    margin: 0 12px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  nav button:hover {
+    background: #4B0082;
+    border-radius: 6px;
+    padding: 6px 12px;
+  }
+  section {
+    display: none;
+    padding: 40px 20px;
+    max-width: 900px;
+    margin: auto;
+  }
+  section.active {
+    display: block;
+  }
+  h1, h2 {
+    color: #4B0082;
+  }
+  form {
+    background: #f2f2f2;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 600px;
+    margin-top: 20px;
+  }
+  label {
+    display: block;
+    margin-top: 12px;
+  }
+  input[type="text"],
+  input[type="email"],
+  select,
+  textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 6px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+  input[type="submit"] {
+    background: #6A0DAD;
+    color: white;
+    border: none;
+    padding: 12px;
+    margin-top: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background 0.3s;
+  }
+  input[type="submit"]:hover {
+    background: #4B0082;
+  }
+  #respostaIA {
+    background: #eaeaea;
+    padding: 15px;
+    border-left: 4px solid #6A0DAD;
+    margin-top: 20px;
+    display: none;
+    white-space: pre-wrap;
+  }
+  footer p {
+    margin: 5px 0;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Nuvix Studio</h1>
+  <p>Vendendo códigos, criando soluções</p>
+</header>
+
+<nav>
+  <button onclick="mostrarSecao('home')">Início</button>
+  <button onclick="mostrarSecao('historia')">História</button>
+  <button onclick="mostrarSecao('login')">Login</button>
+  <button onclick="mostrarSecao('comprar')">Comprar Códigos</button>
+  <button onclick="mostrarSecao('atendimento')">Atendimento</button>
+</nav>
+
+<!-- Seção Início -->
+<section id="home" class="active">
+  <h2>Bem-vindo à Nuvix Studio</h2>
+  <p>Seu lugar para soluções em programação prontas e personalizadas.</p>
+</section>
+
+<!-- Seção História -->
+<section id="historia">
+  <h2>História da Nuvix Studio</h2>
+  <p>Um dia, assistindo vídeos de programação no YouTube, surgiu a ideia: "E se eu criasse uma empresa de venda de códigos?" Assim nasceu a <strong>Nuvix Studio</strong>, com o objetivo de facilitar a vida de programadores oferecendo códigos prontos e personalizados.</p>
+  <p><strong>Donos:</strong></p>
+  <ul>
+    <li>Luiz Octavio – Dono principal</li>
+    <li>Davi Penkal – Vice-dono</li>
+    <li>Cauã Matos – Vice-dono</li>
+  </ul>
+</section>
+
+<!-- Seção Login -->
+<section id="login">
+  <h2>Login</h2>
+  <form id="formLogin" action="https://formsubmit.co/luizoctavio9018@gmail.com" method="POST" onsubmit="return validarSeguranca(this)">
+    <input type="hidden" name="_subject" value="Novo login no site Nuvix Studio" />
+    <label for="emailLogin">Seu e-mail:</label>
+    <input type="email" name="email" id="emailLogin" required placeholder="seuemail@exemplo.com" />
+    <input type="submit" value="Entrar" />
+  </form>
+  <p style="margin-top: 15px;"><em>Nota: Seu login será enviado aos donos via e-mail.</em></p>
+</section>
+
+<!-- Seção Comprar -->
+<section id="comprar">
+  <h2>Comprar Códigos</h2>
+  <form id="formIA" onsubmit="processarIA(event)">
+    <label for="linguagem">Linguagem:</label>
+    <select id="linguagem" required>
+      <option value="">Selecione</option>
+      <option value="html">HTML</option>
+      <option value="css">CSS</option>
+      <option value="js">JavaScript</option>
+      <option value="python">Python</option>
+      <option value="php">PHP</option>
+      <option value="outra">Outra</option>
+    </select>
+
+    <label for="descricao">Descreva o que você precisa:</label>
+    <textarea id="descricao" rows="4" required placeholder="Ex: Quero um site com sistema de login"></textarea>
+
+    <input type="submit" value="Perguntar à IA" />
+  </form>
+
+  <div id="respostaIA"></div>
+
+  <hr style="margin: 40px 0;" />
+
+  <h3>Enviar solicitação para os donos</h3>
+  <form id="formSolicitacao" action="https://formsubmit.co/luizoctavio9018@gmail.com" method="POST" onsubmit="return validarSeguranca(this)">
+    <input type="hidden" name="_subject" value="Nova solicitação de código - Nuvix Studio" />
+    <label for="nomeSolicitante">Seu nome:</label>
+    <input type="text" name="nome" id="nomeSolicitante" required />
+
+    <label for="emailSolicitante">Seu e-mail:</label>
+    <input type="email" name="email" id="emailSolicitante" required />
+
+    <label for="mensagemSolicitacao">Descrição do código desejado:</label>
+    <textarea name="mensagem" id="mensagemSolicitacao" rows="5" required></textarea>
+
+    <input type="submit" value="Enviar solicitação" />
+  </form>
+</section>
+
+<!-- Seção Atendimento -->
+<section id="atendimento">
+  <h2>Atendimento</h2>
+  <p>Email: <a href="mailto:atendimento@nuvixstudio.com">atendimento@nuvixstudio.com</a></p>
+  <p>WhatsApp: (11) 91234-5678</p>
+  <p>Funcionamos de Segunda a Sexta, das 9h às 18h.</p>
+</section>
+
+<footer>
+  &copy; 2025 Nuvix Studio - Todos os direitos reservados.
+</footer>
+
+<script>
+  // Função para mostrar a seção clicada
+  function mostrarSecao(id) {
+    const secoes = document.querySelectorAll('section');
+    secoes.forEach(sec => {
+      sec.classList.remove('active');
+    });
+    document.getElementById(id).classList.add('active');
+    window.scrollTo(0,0);
+  }
+
+  // Função para simular a IA que responde perguntas
+  function processarIA(event) {
+    event.preventDefault();
+    const linguagem = document.getElementById('linguagem').value.toLowerCase();
+    const descricao = document.getElementById('descricao').value.toLowerCase();
+    const respostaIA = document.getElementById('respostaIA');
+    let resposta = '';
+
+    // Checagem básica da "IA"
+    if (!linguagem || !descricao) {
+      resposta = 'Por favor, selecione a linguagem e descreva o que deseja.';
+    } else if (linguagem === 'html' && descricao.includes('site')) {
+      resposta = 'Podemos criar um site HTML com estrutura moderna, responsivo e profissional.';
+    } else if (linguagem === 'python' && descricao.includes('login')) {
+      resposta = 'Um sistema de login em Python com autenticação segura e banco de dados SQLite pode ser desenvolvido.';
+    } else if (linguagem === 'js') {
+      resposta = 'JavaScript é excelente para interatividade, podemos criar menus, formulários e animações.';
+    } else if (linguagem === 'php') {
+      resposta = 'PHP é ótimo para backend em sites dinâmicos e integrações com banco de dados MySQL.';
+    } else {
+      resposta = 'Analisamos seu pedido e entraremos em contato para oferecer a melhor solução!';
+    }
+
+    respostaIA.style.display = 'block';
+    respostaIA.textContent = resposta;
+  }
+
+  // Função simples para detectar ataques básicos em formulários (exemplo: scripts)
+  function validarSeguranca(form) {
+    const campos = form.querySelectorAll('input[type="text"], input[type="email"], textarea');
+    const padraoInjecao = /<script|javascript:|onerror=|onload=|alert\(/i;
+
+    for (const campo of campos) {
+      if (padraoInjecao.test(campo.value)) {
+        alert('Input inválido detectado! Possível tentativa de ataque bloqueada.');
+        return false;
+      }
+    }
+    return true; // formulário OK
+  }
+</script>
+
+</body>
+</html>
